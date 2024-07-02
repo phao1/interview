@@ -1,0 +1,30 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+on:
+  push:
+    branches:
+      - "**"
+jobs:
+  build:
+    steps:
+      - name: Say hello
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+          echo "hello world"
+    needs:
+      - ddd
+  ddd:
+    steps:
+      - name: scan
+        uses: cloudbees-io/sonarqube-sast-scan-code@v1
+        run: ""
+        kind: scan
+        with:
+          server-url: ddd
+          username: ddd
+          password: ddd
+          language: ddd
+        shell: ""
+    environment: ""
